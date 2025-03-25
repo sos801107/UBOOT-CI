@@ -35,4 +35,4 @@ SOC=mt7981 BOARD=ruijie_rg-x30e-pro MULTI_LAYOUT=1 ./build.sh
 SOC=mt7981 BOARD=wr30u MULTI_LAYOUT=1 ./build.sh
 
 SOC=mt7986 BOARD=redmi_ax6000 MULTI_LAYOUT=1 ./build.sh
-SOC=mt7986 BOARD=ruijie_rg-x60 MULTI_LAYOUT=1 ./build.sh
+#SOC=mt7986 BOARD=ruijie_rg-x60 MULTI_LAYOUT=1 ./build.sh
