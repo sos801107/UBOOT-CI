@@ -2,8 +2,8 @@ name: 798x-UBOOT
 
 on:
   #自动编译：每周日早上4点
-  #schedule:
-    #- cron: 0 20 * * 0
+  schedule:
+  - cron: 0 20 * * 0
   #手动编译
   workflow_dispatch:
 
@@ -58,7 +58,7 @@ jobs:
           sudo mkdir -p /mnt/build_wrt
           sudo chown $USER:$USER /mnt/build_wrt
           sudo ln -s /mnt/build_wrt $GITHUB_WORKSPACE/wrt
-
+          
       - name: Initialization Values
         run: |
           echo "WRT_AUTHOR=$(echo $WRT_REPO | cut -d '/' -f 4)" >> $GITHUB_ENV
@@ -81,7 +81,11 @@ jobs:
             soc="${BASH_REMATCH[1]}"
             rest="${BASH_REMATCH[2]}"
             board="${rest%_multi_layout}"
-
+            
+          # 仅处理指定设备
+          if [[ "$board" == "zyxel_ex5700" ]]; then
+              continue
+          fi
             key="$soc:$board"
             if [[ $rest == *_multi_layout ]]; then
               lines_map["$key"]="SOC=$soc BOARD=$board MULTI_LAYOUT=1 ./build.sh"
@@ -147,6 +151,7 @@ jobs:
           tag_name: ${{env.WRT_AUTHOR}}_${{env.WRT_VER}}_${{env.WRT_DATE}}
           files: ./wrt/upload/*.*
           body: |
+            根据 1715173329 的源码编译：| bl-mt798x-oss |编译的 mt798x-uboot，并对其进行了汉化
             这是个平台固件包，内含多个设备！
             请注意选择你需要的设备固件！
             不要问，刷就完事了！
