@@ -37,7 +37,7 @@ jobs:
       #max-parallel: 4
       matrix:
         WRT_ATF: [atf-20220606-637ba581b, atf-20240117-bacca82a8, atf-20250711]
-        WRT_MTK: [uboot-mtk-20230718-09eda825]
+        WRT_MTK: [uboot-mtk-20250711]
 
     steps:
       - name: Checkout Projects
@@ -83,7 +83,12 @@ jobs:
             soc="${BASH_REMATCH[1]}"
             rest="${BASH_REMATCH[2]}"
             board="${rest%_multi_layout}"
-
+            
+          # 仅处理指定设备
+          if [[ "$board" == "zyxel_ex5700" ]]; then
+              continue
+          fi
+          
             key="$soc:$board"
             if [[ $rest == *_multi_layout ]]; then
               lines_map["$key"]="SOC=$soc BOARD=$board MULTI_LAYOUT=1 ./build.sh"
