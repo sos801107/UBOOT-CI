@@ -10,8 +10,8 @@ on:
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   WRT_TARGET: MTK-798x
-  WRT_REPO: https://github.com/sos801107/bl-mt798x-oss.git
-  WRT_BRANCH: fit-example
+  WRT_REPO: https://github.com/1715173329/bl-mt798x-oss
+  WRT_BRANCH: bpi-r3-mini
 
 permissions: write-all
 
